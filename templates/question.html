@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h2>Вопросы {{ (page - 1) * 5 + 1 }}-{{ page * 5 }}</h2>
+<form action="{{ url_for('question_page', page=page) }}" method="post">
+    {% for question in questions %}
+        <div class="question">
+            <label>{{ (page - 1) * 5 + loop.index }}. {{ question.question }}</label>
+            <select name="{{ question.name }}">
+                <option value="0">Никогда</option>
+                <option value="1">Редко</option>
+                <option value="2">Иногда</option>
+                <option value="3">Часто</option>
+                <option value="4">Всегда</option>
+            </select>
+        </div>
+    {% endfor %}
+
+    <div class="navigation">
+        {% if page > 1 %}
+            <a class="btn" href="{{ url_for('question_page', page=page-1) }}">Назад</a>
+        {% endif %}
+
+        {% if page < 4 %}
+            <button type="submit">Далее</button>
+        {% else %}
+            <button type="submit">Отправить</button>
+        {% endif %}
+    </div>
+</form>
+{% endblock %}
