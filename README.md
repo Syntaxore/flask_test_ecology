@@ -1,6 +1,6 @@
 Clone the repository:
 bash
-git clone https://github.com/yourusername/ecoquiz.git
+git clone https://github.com/Syntaxore/flask_test_ecology
 cd ecoquiz
 
 Set up a virtual environment (optional but recommended):
