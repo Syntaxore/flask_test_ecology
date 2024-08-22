@@ -1,0 +1,9 @@
+Flask==2.3.2
+Flask-SQLAlchemy==3.0.5
+Flask-Migrate==4.0.4
+Flask-WTF==1.1.1
+Jinja2==3.1.2
+WTForms==3.0.1
+Werkzeug==2.3.2
+psycopg2-binary==2.9.6  # Если используете PostgreSQL
+gunicorn==21.1.0  # Для деплоя на продакшн
