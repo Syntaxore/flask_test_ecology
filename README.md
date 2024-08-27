@@ -1,7 +1,7 @@
 Clone the repository:
 bash
 git clone https://github.com/Syntaxore/flask_test_ecology
-cd ecoquiz
+cd flask_test_ecology
 
 Set up a virtual environment (optional but recommended):
 bash
