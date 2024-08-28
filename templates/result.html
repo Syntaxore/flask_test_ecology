@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Результаты теста</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/1.1.0/progressbar.min.js">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -28,13 +29,6 @@
             font-size: 18px;
             margin-bottom: 20px;
         }
-        .recommendations {
-            margin-top: 20px;
-        }
-        .recommendations ul {
-            list-style-type: disc;
-            padding-left: 20px;
-        }
         button {
             padding: 10px;
             border: none;
@@ -49,6 +43,11 @@
         button:hover {
             background-color: #0056b3;
         }
+        #circle-container {
+            width: 200px;
+            height: 200px;
+            margin: 50px auto;
+        }
     </style>
 </head>
 <body>
@@ -58,17 +57,49 @@
             <p>{{ message }}</p>
             <p>Ваш результат: {{ score }}</p>
         </div>
-        <div class="recommendations">
-            <h2>Рекомендации:</h2>
-            <ul>
-                {% for recommendation in recommendations %}
-                    <li>{{ recommendation }}</li>
-                {% endfor %}
-            </ul>
-        </div>
+        <div id="circle-container"></div>
         <a href="{{ url_for('index') }}">
             <button>Пройти тест снова</button>
         </a>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/1.1.0/progressbar.min.js"></script>
+    <script>
+        var circleBar = new ProgressBar.Circle('#circle-container', {
+            color: '#FF9900',
+            strokeWidth: 10,
+            trailWidth: 1,
+            trailColor: '#e9ecef',
+            easing: 'easeInOut',
+            duration: 1400,
+            text: {
+                autoStyleContainer: false,
+                style: {
+                    color: '#000',
+                    position: 'absolute',
+                    left: '50%',
+                    top: '50%',
+                    padding: 0,
+                    margin: 0,
+                    transform: {
+                        prefix: true,
+                        value: 'translate(-50%, -50%)'
+                    }
+                }
+            },
+            from: { color: '#FF9900', width: 1 },
+            to: { color: '#00FF99', width: 10 },
+            step: function(state, circle) {
+                circle.setText(Math.round(circle.value() * 100) + ' %');
+                circle.path.setAttribute('stroke', state.color);
+                circle.path.setAttribute('stroke-width', state.width);
+            }
+        });
+
+        // Анимация до значения, соответствующего вашему результату
+        circleBar.animate({{ score / 100 }}, {
+            duration: 2000
+        });
+    </script>
 </body>
 </html>
